@@ -1,0 +1,46 @@
+@font-face {
+  font-family: 'Aref Ruqaa';
+  src: url('fonts/Aref_Ruqaa/ArefRuqaa-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Aref Ruqaa';
+  src: url('fonts/Aref_Ruqaa/ArefRuqaa-Bold.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Charm';
+  src: url('fonts/Charm/Charm-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Charm';
+  src: url('fonts/Charm/Charm-Bold.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Italianno';
+  src: url('fonts/Italianno/Italianno-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+}
+
+* {
+  font-family: 'Aref Ruqaa';
+}
+
+.font-title {
+  font-family: 'Charm';
+}
+
+.font-fancy {
+  font-family: 'Italianno';
+}

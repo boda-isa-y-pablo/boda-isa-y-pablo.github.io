@@ -1,0 +1,24 @@
+@import "./fonts.css";
+@import "tailwindcss";
+
+:root {
+  --color-primary: #81543a;
+  /* --color-primary: #233e81; */
+  /* --color-primary: #326196; */
+}
+
+.debug {
+  border: 2px solid red;
+}
+
+.debug-b {
+  border: 2px solid blue;
+}
+
+.bg-primary {
+  background-color: var(--color-primary);
+}
+
+.color-primary {
+  color: var(--color-primary);
+}
