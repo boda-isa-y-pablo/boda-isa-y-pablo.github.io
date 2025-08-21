@@ -33,6 +33,13 @@
   font-style: normal;
 }
 
+@font-face {
+  font-family: 'Hurricane';
+  src: url('fonts/Hurricane/Hurricane-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+}
+
 * {
   font-family: 'Aref Ruqaa';
 }
@@ -43,4 +50,8 @@
 
 .font-fancy {
   font-family: 'Italianno';
+}
+
+.font-cute {
+  font-family: 'Hurricane';
 }
