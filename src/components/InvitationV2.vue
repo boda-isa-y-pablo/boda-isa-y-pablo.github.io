@@ -1,5 +1,5 @@
 <template>
-  <div class="relative">
+  <div class="relative mb-12">
 
     <img id="imgIntro" src="/img/intro.png" alt="Invitation Intro" class="h-screen w-screen object-cover"
       style="filter: brightness(.7) grayscale(0.6)" />
@@ -39,8 +39,44 @@
     </div>
   </div>
 
-  <div class="h-96">
-    <!-- whitespace for testing -->
+  <div>
+    <h1 class="text-4xl text-center mb-12">
+      <FadeInText text="ITINERARIO" />
+    </h1>
+
+    <div class="px-4">
+      <div v-for="(item, index) in itinerary" :key="index" class="text-center flex"
+        :class="{ 'flex-row-reverse': index % 2 !== 0 }">
+        <div class="w-1/2 h-38 flex-col " :class="{ 'border-l-2': index % 2 !== 0 }">
+          <div class="h-1/2 flex justify-center items-end py-2">
+            <p class="text-xl">{{ item.time }}</p>
+          </div>
+          <div class="relative">
+            <div class="border-1" :class="{ 'ml-6': index % 2 === 0, 'mr-6': index % 2 !== 0 }"></div>
+            <span class="absolute -translate-y-1/2" :class="{
+              'right-0': index % 2 === 0,
+              'left-0': index % 2 !== 0,
+              'translate-x-1/2': index % 2 === 0,
+              '-translate-x-1/2': index % 2 !== 0,
+            }">
+              <Badge :size="26" color="#877030" fill="#a68b3b" />
+            </span>
+          </div>
+          <div class="h-1/2 py-2">
+            <p>{{ item.title }}</p>
+            <p>{{ item.address }}</p>
+          </div>
+        </div>
+        <div class="w-1/2 flex items-center px-6"
+          :class="{ 'justify-end': index % 2 !== 0, 'border-l-2': index % 2 === 0 }">
+          <component :is="item.icon" :size="48" :strokeWidth="1" />
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="h-64">
+    <!-- whitespace -->
   </div>
 </template>
 
@@ -125,8 +161,39 @@
 </style>
 
 <script setup lang="ts">
-import { CalendarDays, Icon, Church, Phone, Image, Calendar } from 'lucide-vue-next';
-import { gemRing } from '@lucide/lab';
+import { Badge, Church, Gavel, NotebookTabs, Utensils, PartyPopper } from 'lucide-vue-next';
 import FadeInText from '@/components/FadeInText.vue';
 
+const itinerary: { title: string; time: string, address: string, icon: any, }[] = [
+  {
+    title: 'CEREMONIA RELIGIOSA',
+    time: '04:00 PM',
+    address: 'Direccion',
+    icon: Church,
+  },
+  {
+    title: 'CEREMONIA CIVIL',
+    time: '06:00 PM',
+    address: 'Direccion',
+    icon: Gavel,
+  },
+  {
+    title: 'RECEPCION',
+    time: '07:00 PM',
+    address: 'Direccion',
+    icon: NotebookTabs,
+  },
+  {
+    title: 'CENA',
+    time: '08:00 PM',
+    address: 'Direccion',
+    icon: Utensils,
+  },
+  {
+    title: 'FIESTA',
+    time: '09:00 PM',
+    address: 'Direccion',
+    icon: PartyPopper,
+  },
+];
 </script>
