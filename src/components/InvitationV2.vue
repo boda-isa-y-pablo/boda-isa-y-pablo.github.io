@@ -1,5 +1,5 @@
 <template>
-  <div class="relative mb-12">
+  <div id="home" class="relative mb-12">
 
     <img id="imgIntro" src="/img/intro.png" alt="Invitation Intro" class="h-screen w-screen object-cover"
       style="filter: brightness(.7) grayscale(0.6)" />
@@ -39,7 +39,7 @@
     </div>
   </div>
 
-  <div>
+  <div id="itinerary" class="mb-12">
     <h1 class="text-4xl text-center mb-12">
       <FadeInText text="ITINERARIO" />
     </h1>
@@ -73,6 +73,42 @@
         </div>
       </div>
     </div>
+  </div>
+
+
+  <div id="details" class="relative mb-12">
+    <img src="/img/intro.png" class="h-screen w-screen object-cover" style="filter: brightness(.7) grayscale(0.6)" />
+
+    <img src="/img/intro.png" class="h-screen w-screen object-cover" style="filter: brightness(.7) grayscale(0.6)" />
+
+    <div class="absolute top-0 left-0 w-full h-full bg-stone-300 opacity-70">
+      <!-- overlay -->
+    </div>
+
+    <div class="absolute top-0 left-0 pt-14 px-6">
+      <p class="text-4xl text-center relative mb-12">
+        <span class="anim-fade-in text-5xl font-cute absolute top-0 left-1/7 -translate-y-3/5 -rotate-15">
+          los
+        </span>
+        <FadeInText text="DETALLES" />
+      </p>
+
+      <p class="text-center mb-10">
+        Para todos nuestros invitados que tengan muchas preguntas, hemos preparado esta sección con toda la
+        información.
+      </p>
+
+      <section v-for="(section, index) in detailsSections" :key="index" class="text-right mb-12">
+        <h1 class="font-bold uppercase">{{ section.title }}</h1>
+        <p>
+          {{ section.description }}
+        </p>
+      </section>
+    </div>
+  </div>
+
+  <div id="gallery">
+    <!-- TODO -->
   </div>
 
   <div class="h-64">
@@ -158,6 +194,20 @@
     translate: -50% -50%;
   }
 }
+
+.anim-fade-in {
+  animation: fade-in 1s ease forwards;
+}
+
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
 </style>
 
 <script setup lang="ts">
@@ -194,6 +244,33 @@ const itinerary: { title: string; time: string, address: string, icon: any, }[] 
     time: '09:00 PM',
     address: 'Direccion',
     icon: PartyPopper,
+  },
+];
+
+const detailsSections: { title: string, description: string }[] = [
+  {
+    title: '¿Cuál es el código de vestimenta?',
+    description: 'Formal: traje para los hombres y vestido largo para las mujeres.'
+  },
+  {
+    title: '¿Puedo tomar fotos con mi teléfono durante la boda?',
+    description: '¡Sí! Nos encantaría que tomaras fotos y las compartieras con el código QR que se encontrará en tu mesa. Sin embargo, por favor abstente de tomar fotos durante la ceremonia de la iglesia y no obstruir las tomas del fotógrafo. Después de la fiesta compartiremos las fotos contigo :)'
+  },
+  {
+    title: '¿Dónde me puedo estacionar?',
+    description: 'El lugar de la recepción cuenta con estacionamiento privado.'
+  },
+  {
+    title: "¿Los niños son bienvenidos?",
+    description: 'Los adultos a divertirse, los niños a descansar. Solo serán admitidos los niños pertenecientes a nuestra familia.'
+  },
+  {
+    title: '¿Puedo llevar acompañantes extras?',
+    description: 'No, favor de limitarte al número de invitados brindados.'
+  },
+  {
+    title: '¿Qué tipo de regalos preferimos?',
+    description: 'Tu presencia en nuestro día especial es el mejor regalo que podríamos pedir. Sin embargo, si deseas hacernos un obsequio, apreciamos contribuciones a nuestra luna de miel o artículos de nuestra lista de deseos.'
   },
 ];
 </script>

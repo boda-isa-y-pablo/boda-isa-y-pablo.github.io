@@ -15,6 +15,10 @@
   border: 2px solid blue;
 }
 
+.debug-g {
+  border: 2px solid green;
+}
+
 .bg-primary {
   background-color: var(--color-primary);
 }
