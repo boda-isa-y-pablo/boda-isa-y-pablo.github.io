@@ -1,10 +1,10 @@
 <template>
   <div id="home" class="relative mb-12">
 
-    <img id="imgIntro" src="/img/intro.png" alt="Invitation Intro" class="h-screen w-screen object-cover"
-      style="filter: brightness(.7) grayscale(0.6)" />
+    <img id="imgIntro" :src="introImage" alt="Invitation Intro" class="h-screen w-screen object-cover"
+      style="filter: brightness(.6);" />
 
-    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/6 text-center text-gray-100 w-100">
+    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 text-center text-gray-100 w-100">
       <p id="weDo" class="text-8xl mb-12 relative" style="text-shadow: white 2px 2px 12px">
         <span class="font-cute we-do-left inline-block">We</span>
         <span class="mx-4"></span>
@@ -75,11 +75,12 @@
     </div>
   </div>
 
-
   <div id="details" class="relative mb-12">
-    <img src="/img/intro.png" class="h-screen w-screen object-cover" style="filter: brightness(.7) grayscale(0.6)" />
+    <img src="/img/gallery/DSC02500.jpg" class="h-screen w-screen object-cover" style="filter: brightness(.8)" />
 
-    <img src="/img/intro.png" class="h-screen w-screen object-cover" style="filter: brightness(.7) grayscale(0.6)" />
+    <!-- <img src="/img/gallery/DSC02504.jpg" class="h-screen w-screen object-cover"
+      style="filter: brightness(.7) grayscale(0.6)" /> -->
+    <img src="/img/gallery/DSC02401.jpg" class="w-screen object-cover" style="filter: brightness(.8)" />
 
     <div class="absolute top-0 left-0 w-full h-full bg-stone-300 opacity-70">
       <!-- overlay -->
@@ -107,12 +108,23 @@
     </div>
   </div>
 
-  <div id="gallery">
-    <!-- TODO -->
-  </div>
+  <div id="gallery" class="px-2 pb-2">
+    <p class="text-4xl text-center relative mb-12">
+      <FadeInText text="GALERÍA DE FOTOS" />
+    </p>
 
-  <div class="h-64">
-    <!-- whitespace -->
+    <p class="text-center mb-12 px-6">
+      Porque eres muy importante para nosotros, queremos compartir contigo nuestros momentos preferidos.
+    </p>
+
+    <div class="grid grid-cols-2 gap-2">
+      <div v-for="(grid, index) of gallery.grids" class="grid gap-2" :class="grid.class" :key="index">
+        <div v-for="(img, imgIndex) of grid.images" :key="imgIndex">
+          <img class="h-auto max-w-full rounded-lg" :src="img">
+        </div>
+      </div>
+    </div>
+
   </div>
 </template>
 
@@ -214,6 +226,9 @@
 import { Badge, Church, Gavel, NotebookTabs, Utensils, PartyPopper } from 'lucide-vue-next';
 import FadeInText from '@/components/FadeInText.vue';
 
+// const introImage = '/img/gallery/DSC02504.jpg' // caminando de frente (color)
+const introImage = '/img/gallery/DSC02518.jpg' // caminando de espaldas 2 (color)
+
 const itinerary: { title: string; time: string, address: string, icon: any, }[] = [
   {
     title: 'CEREMONIA RELIGIOSA',
@@ -273,4 +288,88 @@ const detailsSections: { title: string, description: string }[] = [
     description: 'Tu presencia en nuestro día especial es el mejor regalo que podríamos pedir. Sin embargo, si deseas hacernos un obsequio, apreciamos contribuciones a nuestra luna de miel o artículos de nuestra lista de deseos.'
   },
 ];
+
+type Gallery = { grids: GalleryGrid[] }
+
+type GalleryGrid = { class?: string, images: string[] }
+
+const gallery: Gallery = {
+  grids: [
+    {
+      images: [
+        '/img/gallery/DSC02382.jpg',
+        '/img/gallery/DSC02399.jpg',
+        '/img/gallery/DSC02419.jpg',
+      ]
+    },
+    {
+      images: [
+        '/img/gallery/DSC02366.jpg',
+        '/img/gallery/DSC02408.jpg',
+        '/img/gallery/DSC02444.jpg',
+      ]
+    },
+    {
+      images: [
+        '/img/gallery/DSC02446.jpg',
+        '/img/gallery/DSC02427 cropped.jpg',
+        '/img/gallery/DSC02482.jpg',
+      ]
+    },
+    {
+      images: [
+        '/img/gallery/DSC02401.jpg',
+        '/img/gallery/DSC02439.jpg',
+        '/img/gallery/DSC02421.jpg',
+      ]
+    },
+    {
+      images: [
+        '/img/gallery/DSC02475 4-3_v1.jpg',
+        '/img/gallery/DSC02500.jpg',
+        '/img/gallery/DSC02516 4-3_v1.jpg',
+      ]
+    },
+    {
+      images: [
+        '/img/gallery/DSC02504.jpg',
+        '/img/gallery/DSC02431_v1.jpg',
+        '/img/gallery/DSC02524 4-3_v1.jpg',
+      ]
+    },
+  ],
+}
+
+const gallery2: Gallery = {
+  grids: [
+    {
+      images: [
+        'https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image.jpg',
+        'https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-1.jpg',
+        'https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-2.jpg',
+      ]
+    },
+    {
+      images: [
+        'https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-3.jpg',
+        'https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-4.jpg',
+        'https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-5.jpg',
+      ]
+    },
+    {
+      images: [
+        'https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-6.jpg',
+        'https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-7.jpg',
+        'https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-8.jpg',
+      ]
+    },
+    {
+      images: [
+        'https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-9.jpg',
+        'https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-10.jpg',
+        'https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-11.jpg',
+      ]
+    },
+  ],
+}
 </script>
