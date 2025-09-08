@@ -41,15 +41,15 @@
     </div>
   </div>
 
-  <div id="itinerary" class="px-6 py-12">
-    <h1 class="text-4xl text-center mb-12">
+  <div id="itinerary" class="px-6 py-12 bg-rose-50">
+    <h1 class=" text-4xl text-center mb-12">
       <FadeInText text="ITINERARIO" />
     </h1>
 
     <div class="flex flex-col gap-12">
       <div v-for="(item, index) of itinerary" :key="index" class="outline-1 outline-gray-200 shadow-md rounded-2xl">
-        <div class="px-4 py-12 text-center">
-          <p class="uppercase mb-6">
+        <div class="px-4 py-12 text-center bg-gray-50 rounded-t-2xl">
+          <p class=" uppercase mb-6">
             <span class="font-bold">{{ item.time }}</span> {{ item.title }}
           </p>
           <p class="underline text-rose-400">
@@ -109,12 +109,15 @@
     <div class="grid grid-cols-2 gap-2">
       <div v-for="(grid, index) of gallery.grids" class="grid gap-2" :class="grid.class" :key="index">
         <div v-for="(img, imgIndex) of grid.images" :key="imgIndex">
-          <img class="h-auto max-w-full rounded-lg" :src="img">
+          <img class="h-auto max-w-full rounded-lg" :src="img" @click="openImageViewer(img)" />
         </div>
       </div>
     </div>
 
   </div>
+
+  <ImageViewer :image="selectedImage" :opened="isOpen" @close="isOpen = false" />
+
 </template>
 
 <style lang="css" scoped>
@@ -214,6 +217,8 @@
 <script setup lang="ts">
 import FadeInText from '@/components/FadeInText.vue';
 import Countdown from './Countdown.vue';
+import ImageViewer from './ImageViewer.vue';
+import { ref } from 'vue';
 
 const weddingDate = new Date('2025-12-28T16:00:00');
 
@@ -321,36 +326,10 @@ const gallery: Gallery = {
   ],
 }
 
-const gallery2: Gallery = {
-  grids: [
-    {
-      images: [
-        'https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image.jpg',
-        'https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-1.jpg',
-        'https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-2.jpg',
-      ]
-    },
-    {
-      images: [
-        'https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-3.jpg',
-        'https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-4.jpg',
-        'https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-5.jpg',
-      ]
-    },
-    {
-      images: [
-        'https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-6.jpg',
-        'https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-7.jpg',
-        'https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-8.jpg',
-      ]
-    },
-    {
-      images: [
-        'https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-9.jpg',
-        'https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-10.jpg',
-        'https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-11.jpg',
-      ]
-    },
-  ],
+const selectedImage = ref('');
+const isOpen = ref(false);
+function openImageViewer(image: string) {
+  selectedImage.value = image;
+  isOpen.value = true;
 }
 </script>
