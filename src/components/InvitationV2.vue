@@ -1,10 +1,10 @@
 <template>
-  <div id="home" class="relative">
+  <div id="home" class="relative text-gray-100">
 
     <img id="imgIntro" :src="introImage" alt="Invitation Intro" class="h-screen w-screen object-cover"
-      style="filter: brightness(.6);" />
+      style="filter: brightness(.5);" />
 
-    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 text-center text-gray-100 w-100">
+    <div class="absolute top-0 left-1/2 -translate-x-1/2 py-14 text-center w-100">
       <p id="weDo" class="text-8xl mb-12 relative" style="text-shadow: white 2px 2px 12px">
         <span class="font-cute we-do-left inline-block">We</span>
         <span class="mx-4"></span>
@@ -17,25 +17,27 @@
         <FadeInText text="ISABEL & PABLO" />
       </p>
 
-      <p class="mb-6">TE INVITAMOS A CELEBRAR NUESTRA BODA</p>
+      <p class="anim-fade-in mb-6">
+        Te invitamos a celebrar nuestra boda este<br>
+        <span class="text-2xl">
+          {{ weddingDate.getDate() }} de
+          <span class="uppercase">{{ weddingDate.toLocaleString('es-MX', { month: 'long' }) }}</span> de
+          {{ weddingDate.getFullYear() }}
+        </span>
+      </p>
+    </div>
 
-      <div class="flex justify-center items-center gap-4">
-        <div class="w-28 border-t-2 border-b-2 border-t-gray-100 py-1">
-          <FadeInText text="DOMINGO" />
-        </div>
-        <div class="text-2xl">
-          <p>
-            <FadeInText text="DIC" />
-          </p>
-          <p class="text-4xl mb-1">28</p>
-          <p>
-            <FadeInText text="2025" />
-          </p>
-        </div>
-        <div class="w-28 border-t-2 border-b-2 border-t-gray-100 py-1">
-          <FadeInText text="04:00 PM" />
-        </div>
-      </div>
+    <div id="countdown" class="anim-fade-in absolute bottom-0 left-0 -translate-y-1/2 w-full py-12 text-center">
+      <p class="mb-4">Faltan</p>
+
+      <Countdown :date="weddingDate">
+        <template #done>
+          <div class="text-center">
+            <h2 class="text-3xl font-bold">🎉 The big moment is here!</h2>
+            <p class="opacity-70">Thanks for counting down with us.</p>
+          </div>
+        </template>
+      </Countdown>
     </div>
   </div>
 
@@ -211,6 +213,9 @@
 
 <script setup lang="ts">
 import FadeInText from '@/components/FadeInText.vue';
+import Countdown from './Countdown.vue';
+
+const weddingDate = new Date('2025-12-28T16:00:00');
 
 const introImage = '/img/gallery/DSC02518.jpg'
 
