@@ -1,5 +1,5 @@
 <template>
-  <div id="home" class="relative mb-12">
+  <div id="home" class="relative">
 
     <img id="imgIntro" :src="introImage" alt="Invitation Intro" class="h-screen w-screen object-cover"
       style="filter: brightness(.6);" />
@@ -39,40 +39,27 @@
     </div>
   </div>
 
-  <div id="itinerary" class="mb-12">
+  <div id="itinerary" class="px-6 py-12">
     <h1 class="text-4xl text-center mb-12">
       <FadeInText text="ITINERARIO" />
     </h1>
 
-    <div class="px-4">
-      <div v-for="(item, index) in itinerary" :key="index" class="text-center flex"
-        :class="{ 'flex-row-reverse': index % 2 !== 0 }">
-        <div class="w-1/2 h-38 flex-col " :class="{ 'border-l-2': index % 2 !== 0 }">
-          <div class="h-1/2 flex justify-center items-end py-2">
-            <p class="text-xl">{{ item.time }}</p>
-          </div>
-          <div class="relative">
-            <div class="border-1" :class="{ 'ml-6': index % 2 === 0, 'mr-6': index % 2 !== 0 }"></div>
-            <span class="absolute -translate-y-1/2" :class="{
-              'right-0': index % 2 === 0,
-              'left-0': index % 2 !== 0,
-              'translate-x-1/2': index % 2 === 0,
-              '-translate-x-1/2': index % 2 !== 0,
-            }">
-              <Badge :size="26" color="#877030" fill="#a68b3b" />
-            </span>
-          </div>
-          <div class="h-1/2 py-2">
-            <p>{{ item.title }}</p>
-            <p>{{ item.address }}</p>
-          </div>
+    <div class="flex flex-col gap-12">
+      <div v-for="(item, index) of itinerary" :key="index" class="outline-1 outline-gray-200 shadow-md rounded-2xl">
+        <div class="px-4 py-12 text-center">
+          <p class="uppercase mb-6">
+            <span class="font-bold">{{ item.time }}</span> {{ item.title }}
+          </p>
+          <p class="underline text-rose-400">
+            <a :href="item.addressLink" target="_blank">{{ item.address }}</a>
+          </p>
         </div>
-        <div class="w-1/2 flex items-center px-6"
-          :class="{ 'justify-end': index % 2 !== 0, 'border-l-2': index % 2 === 0 }">
-          <component :is="item.icon" :size="48" :strokeWidth="1" />
+        <div class="w-full">
+          <img :src="item.img" class="rounded-b-2xl">
         </div>
       </div>
     </div>
+
   </div>
 
   <div id="details" class="relative mb-12">
@@ -223,43 +210,32 @@
 </style>
 
 <script setup lang="ts">
-import { Badge, Church, Gavel, NotebookTabs, Utensils, PartyPopper } from 'lucide-vue-next';
 import FadeInText from '@/components/FadeInText.vue';
 
-// const introImage = '/img/gallery/DSC02504.jpg' // caminando de frente (color)
-const introImage = '/img/gallery/DSC02518.jpg' // caminando de espaldas 2 (color)
+const introImage = '/img/gallery/DSC02518.jpg'
 
-const itinerary: { title: string; time: string, address: string, icon: any, }[] = [
+const itinerary: { title: string; time: string, address: string, addressLink: string, img: string }[] = [
   {
-    title: 'CEREMONIA RELIGIOSA',
+    title: 'Cerenomia Religiosa',
     time: '04:00 PM',
-    address: 'Direccion',
-    icon: Church,
+    address: 'Parroquia Medalla Milagrosa. Adolfo Ruiz Cortines, Miguel Alemán',
+    addressLink: 'https://maps.app.goo.gl/8dc5CKP2XezksyYMA',
+    img: '/img/church.png',
   },
   {
-    title: 'CEREMONIA CIVIL',
+    title: 'Ceremonia Civil',
     time: '06:00 PM',
-    address: 'Direccion',
-    icon: Gavel,
+    address: 'Centro Deportivo ROCO. Carretera nacional México Laredo km 555',
+    addressLink: 'https://maps.app.goo.gl/EW6gb6XUfTiQeFtw7',
+    img: '/img/roco.png',
   },
   {
-    title: 'RECEPCION',
+    title: 'Recepción',
     time: '07:00 PM',
-    address: 'Direccion',
-    icon: NotebookTabs,
-  },
-  {
-    title: 'CENA',
-    time: '08:00 PM',
-    address: 'Direccion',
-    icon: Utensils,
-  },
-  {
-    title: 'FIESTA',
-    time: '09:00 PM',
-    address: 'Direccion',
-    icon: PartyPopper,
-  },
+    address: 'Centro Deportivo ROCO. Carretera nacional México Laredo km 555',
+    addressLink: 'https://maps.app.goo.gl/EW6gb6XUfTiQeFtw7',
+    img: '/img/roco.png',
+  }
 ];
 
 const detailsSections: { title: string, description: string }[] = [
