@@ -1,6 +1,5 @@
 @import "./fonts.css";
 @import "tailwindcss";
-@import 'vue-sound/style.css';
 
 :root {
   --color-primary: #81543a;

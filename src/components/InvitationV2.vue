@@ -62,14 +62,16 @@
           </p>
         </div>
         <div class="w-full">
-          <img :src="item.img" class="rounded-b-2xl">
+          <a :href="item.addressLink" target="_blank">
+            <img :src="item.img" class="rounded-b-2xl w-full">
+          </a>
         </div>
       </div>
     </div>
 
   </div>
 
-  <div id="details" class="relative mb-12 text-lg">
+  <div id="details" class="relative mb-12 text-xl">
     <div class="relative pt-14 px-6 pb-6 z-1">
       <p class="text-4xl text-center relative mb-12">
         <span class="anim-fade-in text-5xl font-cute absolute top-0 left-1/7 -translate-y-3/5 -rotate-15">
@@ -78,12 +80,12 @@
         <FadeInText text="DETALLES" />
       </p>
 
-      <p class="text-center mb-10">
+      <p class="text-center mb-12">
         Para todos nuestros invitados que tengan muchas preguntas, hemos preparado esta sección con toda la
         información.
       </p>
 
-      <section v-for="(section, index) in detailsSections" :key="index" class="text-right mb-12">
+      <section v-for="(section, index) in detailsSections" :key="index" class="text-right mb-14">
         <h1 class="font-bold uppercase">{{ section.title }}</h1>
         <p>
           {{ section.description }}
@@ -95,11 +97,12 @@
       <img src="/img/gallery/DSC02500.jpg" class="h-screen w-screen object-cover" style="filter: brightness(.8)" />
       <img src="/img/gallery/DSC02401.jpg" class="w-screen object-cover" style="filter: brightness(.8)" />
       <img src="/img/gallery/DSC02421.jpg" class="w-screen object-cover" style="filter: brightness(.8)" />
+      <img src="/img/gallery/DSC02524 4-3_v1.jpg" class="w-screen object-cover" style="filter: brightness(.8)" />
       <div id="detailsOverlay" class="absolute top-0 left-0 w-full h-full bg-stone-300 opacity-70"></div>
     </div>
   </div>
 
-  <div id="gallery" class="px-4 pb-4 text-lg">
+  <div id="gallery" class="px-4 pb-4 text-xl">
     <p class="text-4xl text-center relative mb-12">
       <FadeInText text="GALERÍA" />
     </p>
