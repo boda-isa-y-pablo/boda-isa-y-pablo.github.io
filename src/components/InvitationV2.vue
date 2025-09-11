@@ -25,6 +25,8 @@
           {{ weddingDate.getFullYear() }}
         </span>
       </p>
+
+      <p v-if="invitationPasses">Esta invitación vale para {{ invitationPasses }} personas</p>
     </div>
 
     <div id="countdown" class="anim-fade-in absolute bottom-0 left-0 -translate-y-2/3 w-full py-12 text-center">
@@ -223,10 +225,39 @@
 import FadeInText from '@/components/FadeInText.vue';
 import Countdown from './Countdown.vue';
 import ImageViewer from './ImageViewer.vue';
-import { ref } from 'vue';
+import { computed, ref } from 'vue';
 import AudioPlayer from './AudioPlayer.vue';
 
 const weddingDate = new Date('2025-12-28T16:00:00');
+
+const invitationPasses = computed<number | null>(() => {
+  const base64UrlParams = new URLSearchParams(window.location.search);
+  const qParam = base64UrlParams.get('q');
+
+  if (qParam == undefined || qParam == null) {
+    return null
+  }
+
+  const decodedQueryParams = decodeBase64(qParam);
+  const urlParams = new URLSearchParams(decodedQueryParams);
+  const passesParam = urlParams.get('passes');
+
+  if (passesParam === undefined || passesParam === null) {
+    return null
+  }
+
+  return parseInt(passesParam)
+
+  function decodeBase64(base64: string): string {
+    const binary = atob(base64);
+    const bytes = new Uint8Array(binary.length);
+    for (let i = 0; i < binary.length; i++) {
+      bytes[i] = binary.charCodeAt(i);
+    }
+    const decoder = new TextDecoder();
+    return decoder.decode(bytes);
+  }
+});
 
 const introImage = '/img/gallery/DSC02518.jpg'
 
