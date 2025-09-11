@@ -1,80 +1,60 @@
 <template>
-  <div class="w-full max-w-md p-4 bg-white shadow-md rounded-lg flex flex-col gap-4">
-    <!-- Title -->
-    <h3 class="text-lg font-semibold text-gray-700">{{ title }}</h3>
+  <div class="bg-stone-800/80 text-gray-200 rounded-xl p-4">
 
-    <!-- Controls -->
-    <div class="flex items-center gap-2">
-      <button @click="togglePlay" class="px-3 py-1 bg-blue-600 text-white rounded hover:bg-blue-700">
-        {{ isPlaying ? "Pause" : "Play" }}
-      </button>
-      <button @click="stop" class="px-3 py-1 bg-gray-600 text-white rounded hover:bg-gray-700">
-        Stop
-      </button>
+    <div class="flex gap-4 mb-2">
+      <!-- play/pause, stop -->
+      <div class="w-24">
+        <div class="flex gap-2">
+          <PlayCircle v-if="!isPlaying" @click="togglePlay" />
+          <PauseCircle v-else @click="togglePlay" />
+          <StopCircle @click="stop" />
+        </div>
+      </div>
+
+      <!-- title -->
+      <div class="w-full">
+        <p class="text-sm">{{ title }}</p>
+      </div>
     </div>
 
-    <!-- Progress Tracker -->
-    <div class="flex items-center gap-2">
-      <input type="range" min="0" :max="duration" step="0.1" v-model="currentTime" @input="seek"
-        class="w-full accent-blue-600" />
-      <span class="text-xs text-gray-600">
-        {{ formatTime(currentTime) }} / {{ formatTime(duration) }}
-      </span>
+    <div class="flex gap-4">
+      <!-- time -->
+      <div class="w-24">
+        <p class="text-xs">{{ formatTime(currentTime) }} / {{ formatTime(duration) }}</p>
+      </div>
+
+      <!-- progress slider -->
+      <div class="w-full">
+        <input type="range" min="0" :max="duration" step="0.1" v-model="currentTime" @input="seek" class="w-full" />
+      </div>
     </div>
 
-    <!-- Volume Control -->
-    <div class="flex items-center gap-2">
-      <button @click="toggleMute" class="px-2 py-1 text-sm bg-gray-200 rounded hover:bg-gray-300">
-        {{ isMuted ? "Unmute" : "Mute" }}
-      </button>
-      <input type="range" min="0" max="1" step="0.01" v-model="volume" @input="updateVolume"
-        class="w-full accent-blue-600" />
-    </div>
-  </div>
+    <div class="flex gap-4">
+      <!-- volume icon -->
+      <div class="w-24">
+        <VolumeX v-if="isMuted" @click="toggleMute" />
+        <Volume2 v-else @click="toggleMute" />
+      </div>
 
-  <br></br>
-
-  <div class="p-4 bg-white rounded-lg">
-    <div class="flex items-center gap-2 debug">
-      <button @click="togglePlay" class="px-3 py-1 text-gray-700">
-        {{ isPlaying ? "Pause" : "Play" }}
-        <PlayCircle/>
-      </button>
-      <button @click="stop" class="px-3 py-1 bg-gray-600 text-white rounded hover:bg-gray-700">
-        Stop
-      </button>
-    </div>
-
-    <p class="text-gray-700">{{ title }}</p>
-
-    <!-- Progress Tracker -->
-    <div class="flex items-center gap-2">
-      <input type="range" min="0" :max="duration" step="0.1" v-model="currentTime" @input="seek"
-        class="w-full accent-blue-600" />
-      <span class="text-xs text-gray-600">
-        {{ formatTime(currentTime) }} / {{ formatTime(duration) }}
-      </span>
-    </div>
-
-    <!-- Volume Control -->
-    <div class="flex items-center gap-2">
-      <button @click="toggleMute" class="px-2 py-1 text-sm bg-gray-200 rounded hover:bg-gray-300">
-        {{ isMuted ? "Unmute" : "Mute" }}
-      </button>
-      <input type="range" min="0" max="1" step="0.01" v-model="volume" @input="updateVolume"
-        class="w-full accent-blue-600" />
+      <!-- volume slider -->
+      <div class="w-full">
+        <input type="range" min="0" max="1" step="0.01" v-model="volume" @input="updateVolume" class="w-full" />
+      </div>
     </div>
   </div>
+
 </template>
 
 <script setup lang="ts">
 import { ref, onMounted, defineProps, onUnmounted } from "vue";
-import { PlayCircle } from 'lucide-vue-next'
+import { PlayCircle, PauseCircle, StopCircle, Volume2, VolumeX } from 'lucide-vue-next'
 
 const props = defineProps<{
+  autoplay?: boolean;
   src: string;
   title: string;
   startSecond?: number;
+  startVolume?: number;
 }>();
 
 const audio = new Audio(props.src);
@@ -105,6 +85,15 @@ onMounted(() => {
     isPlaying.value = false;
     currentTime.value = 0;
   });
+
+  if (props.autoplay) {
+    togglePlay();
+  }
+
+  if (props.startVolume !== undefined && props.startVolume !== null) {
+    volume.value = props.startVolume;
+    updateVolume();
+  }
 });
 
 onUnmounted(() => {

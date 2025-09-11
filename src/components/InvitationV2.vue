@@ -27,7 +27,7 @@
       </p>
     </div>
 
-    <div id="countdown" class="anim-fade-in absolute bottom-0 left-0 -translate-y-1/2 w-full py-12 text-center">
+    <div id="countdown" class="anim-fade-in absolute bottom-0 left-0 -translate-y-2/3 w-full py-12 text-center">
       <p class="mb-4">Faltan</p>
 
       <Countdown :date="weddingDate">
@@ -40,20 +40,9 @@
       </Countdown>
     </div>
 
-    <div class="absolute bottom-0 left-0 w-full py-2">
-      <vue-sound
-        :livestream="false"
-        :show-download="false"
-        title="Canon in D"
-        :title-link="undefined"
-        details="Pachelbel"
-        :details-link="undefined"
-        file="/audio/canon-in-d-pachelbel.mp3"
-      />
-
-      <br></br>
-      
-      <AudioPlayer src="/audio/canon-in-d-pachelbel.mp3" title="Canon in D - Pachelbel" :start-second="3" />
+    <div class="anim-fade-in absolute bottom-0 left-0 w-full p-4">
+      <AudioPlayer :src="audio.src" :title="audio.title" :start-second="audio.startSecond" :autoplay="audio.autoplay"
+        :start-volume="audio.startVolume" />
     </div>
   </div>
 
@@ -232,12 +221,19 @@ import FadeInText from '@/components/FadeInText.vue';
 import Countdown from './Countdown.vue';
 import ImageViewer from './ImageViewer.vue';
 import { ref } from 'vue';
-import { VueSound } from 'vue-sound'
 import AudioPlayer from './AudioPlayer.vue';
 
 const weddingDate = new Date('2025-12-28T16:00:00');
 
 const introImage = '/img/gallery/DSC02518.jpg'
+
+const audio = {
+  src: '/audio/canon-in-d-pachelbel.mp3',
+  title: 'Canon in D - Pachelbel',
+  startSecond: 3,
+  autoplay: true,
+  startVolume: 0.25
+}
 
 const itinerary: { title: string; time: string, address: string, addressLink: string, img: string }[] = [
   {
