@@ -1,5 +1,5 @@
 <template>
-  <div id="home" class="relative text-gray-100">
+  <div id="home" class="relative text-gray-100 text-lg">
 
     <img id="imgIntro" :src="introImage" alt="Invitation Intro" class="h-screen w-screen object-cover"
       style="filter: brightness(.5);" />
@@ -39,9 +39,25 @@
         </template>
       </Countdown>
     </div>
+
+    <div class="absolute bottom-0 left-0 w-full py-2">
+      <vue-sound
+        :livestream="false"
+        :show-download="false"
+        title="Canon in D"
+        :title-link="undefined"
+        details="Pachelbel"
+        :details-link="undefined"
+        file="/audio/canon-in-d-pachelbel.mp3"
+      />
+
+      <br></br>
+      
+      <AudioPlayer src="/audio/canon-in-d-pachelbel.mp3" title="Canon in D - Pachelbel" :start-second="3" />
+    </div>
   </div>
 
-  <div id="itinerary" class="px-6 py-12 bg-rose-50">
+  <div id="itinerary" class="px-6 py-12 bg-rose-50 text-lg">
     <h1 class=" text-4xl text-center mb-12">
       <FadeInText text="ITINERARIO" />
     </h1>
@@ -64,18 +80,8 @@
 
   </div>
 
-  <div id="details" class="relative mb-12">
-    <img src="/img/gallery/DSC02500.jpg" class="h-screen w-screen object-cover" style="filter: brightness(.8)" />
-
-    <!-- <img src="/img/gallery/DSC02504.jpg" class="h-screen w-screen object-cover"
-      style="filter: brightness(.7) grayscale(0.6)" /> -->
-    <img src="/img/gallery/DSC02401.jpg" class="w-screen object-cover" style="filter: brightness(.8)" />
-
-    <div class="absolute top-0 left-0 w-full h-full bg-stone-300 opacity-70">
-      <!-- overlay -->
-    </div>
-
-    <div class="absolute top-0 left-0 pt-14 px-6">
+  <div id="details" class="relative mb-12 text-lg">
+    <div class="relative pt-14 px-6 pb-6 z-1">
       <p class="text-4xl text-center relative mb-12">
         <span class="anim-fade-in text-5xl font-cute absolute top-0 left-1/7 -translate-y-3/5 -rotate-15">
           los
@@ -95,19 +101,26 @@
         </p>
       </section>
     </div>
+
+    <div class="absolute top-0 left-0 z-0 max-h-full overflow-hidden">
+      <img src="/img/gallery/DSC02500.jpg" class="h-screen w-screen object-cover" style="filter: brightness(.8)" />
+      <img src="/img/gallery/DSC02401.jpg" class="w-screen object-cover" style="filter: brightness(.8)" />
+      <img src="/img/gallery/DSC02421.jpg" class="w-screen object-cover" style="filter: brightness(.8)" />
+      <div id="detailsOverlay" class="absolute top-0 left-0 w-full h-full bg-stone-300 opacity-70"></div>
+    </div>
   </div>
 
-  <div id="gallery" class="px-2 pb-2">
+  <div id="gallery" class="px-4 pb-4 text-lg">
     <p class="text-4xl text-center relative mb-12">
-      <FadeInText text="GALERÍA DE FOTOS" />
+      <FadeInText text="GALERÍA" />
     </p>
 
     <p class="text-center mb-12 px-6">
       Porque eres muy importante para nosotros, queremos compartir contigo nuestros momentos preferidos.
     </p>
 
-    <div class="grid grid-cols-2 gap-2">
-      <div v-for="(grid, index) of gallery.grids" class="grid gap-2" :class="grid.class" :key="index">
+    <div class="grid grid-cols-2 gap-4">
+      <div v-for="(grid, index) of gallery.grids" class="grid gap-4" :class="grid.class" :key="index">
         <div v-for="(img, imgIndex) of grid.images" :key="imgIndex">
           <img class="h-auto max-w-full rounded-lg" :src="img" @click="openImageViewer(img)" />
         </div>
@@ -219,6 +232,8 @@ import FadeInText from '@/components/FadeInText.vue';
 import Countdown from './Countdown.vue';
 import ImageViewer from './ImageViewer.vue';
 import { ref } from 'vue';
+import { VueSound } from 'vue-sound'
+import AudioPlayer from './AudioPlayer.vue';
 
 const weddingDate = new Date('2025-12-28T16:00:00');
 

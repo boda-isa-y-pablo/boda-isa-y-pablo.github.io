@@ -32,6 +32,9 @@ importers:
       vue:
         specifier: ^3.5.18
         version: 3.5.18(typescript@5.8.3)
+      vue-sound:
+        specifier: ^0.1.10
+        version: 0.1.10(typescript@5.8.3)
     devDependencies:
       '@tsconfig/node22':
         specifier: ^22.0.2
@@ -1390,6 +1393,9 @@ packages:
 
   vscode-uri@3.1.0:
     resolution: {integrity: sha512-/BpdSx+yCQGnCvecbyXdxHDkuk55/G3xwnC0GqY4gmQ3j+A+g8kzzgB4Nk/SINjqn6+waqw3EgbVF2QKExkRxQ==}
+
+  vue-sound@0.1.10:
+    resolution: {integrity: sha512-Ns03pfeh6KiVesSjjyBf+/M3BuE1mWjTCo0pHHf/APcJuxOUExKUeDEBmcLm8c4mJcxbYBjh5wkQDSXXo5YFYA==}
 
   vue-tsc@3.0.5:
     resolution: {integrity: sha512-PsTFN9lo1HJCrZw9NoqjYcAbYDXY0cOKyuW2E7naX5jcaVyWpqEsZOHN9Dws5890E8e5SDAD4L4Zam3dxG3/Cw==}
@@ -2751,6 +2757,12 @@ snapshots:
       lightningcss: 1.30.1
 
   vscode-uri@3.1.0: {}
+
+  vue-sound@0.1.10(typescript@5.8.3):
+    dependencies:
+      vue: 3.5.18(typescript@5.8.3)
+    transitivePeerDependencies:
+      - typescript
 
   vue-tsc@3.0.5(typescript@5.8.3):
     dependencies:
