@@ -54,16 +54,22 @@
     </h1>
 
     <div class="flex flex-col gap-12">
-      <div v-for="(item, index) of itinerary" :key="index" class="outline-1 outline-gray-200 shadow-md rounded-2xl">
-        <div class="px-4 py-12 text-center bg-gray-50 rounded-t-2xl">
+      <div v-for="(item, index) of itinerary" :key="index"
+        class="outline-1 outline-gray-200 shadow-md rounded-2xl">
+        <div
+          class="px-4 py-12 text-center bg-gray-50 rounded-t-2xl"
+          :class="item.img ? 'rounded-b-none' : 'rounded-b-2xl'">
           <p class=" uppercase mb-6">
             <span class="font-bold">{{ item.time }}</span> {{ item.title }}
           </p>
           <p class="underline text-rose-400">
             <a :href="item.addressLink" target="_blank">{{ item.address }}</a>
           </p>
+          <p v-if="item.emoji" class="text-4xl mt-6">
+            {{ item.emoji }}
+          </p>
         </div>
-        <div class="w-full">
+        <div v-if="item.img" class="w-full debug">
           <a :href="item.addressLink" target="_blank">
             <img :src="item.img" class="rounded-b-2xl w-full">
           </a>
@@ -248,7 +254,7 @@ import AudioPlayer from './AudioPlayer.vue';
 
 const weddingDate = new Date('2025-12-28T16:00:00');
 
-const invitationPasses = computed<number | null>(() => {
+const invitationQueryParams = computed<URLSearchParams | null>(() => {
   const base64UrlParams = new URLSearchParams(window.location.search);
   const qParam = base64UrlParams.get('q');
 
@@ -257,15 +263,9 @@ const invitationPasses = computed<number | null>(() => {
   }
 
   const decodedQueryParams = decodeBase64(qParam);
-  const urlParams = new URLSearchParams(decodedQueryParams);
-  const passesParam = urlParams.get('passes');
-
-  if (passesParam === undefined || passesParam === null) {
-    return null
-  }
-
-  return parseInt(passesParam)
-
+  
+  return new URLSearchParams(decodedQueryParams);
+  
   function decodeBase64(base64: string): string {
     const binary = atob(base64);
     const bytes = new Uint8Array(binary.length);
@@ -275,6 +275,34 @@ const invitationPasses = computed<number | null>(() => {
     const decoder = new TextDecoder();
     return decoder.decode(bytes);
   }
+});
+
+const invitationPasses = computed<number | null>(() => {
+  if (invitationQueryParams.value == null) {
+    return null
+  }
+
+  const passesParam = invitationQueryParams.value.get('passes');
+
+  if (passesParam === undefined || passesParam === null) {
+    return null
+  }
+
+  return parseInt(passesParam)
+});
+
+const showCivilCeremony = computed(() => {
+  if (invitationQueryParams.value == null) {
+    return false
+  }
+
+  const civilParam = invitationQueryParams.value.get('civil');
+
+  if (civilParam === undefined || civilParam === null) {
+    return false
+  }
+
+  return civilParam.trim().toLowerCase() === 'true'
 });
 
 const introImage = '/img/gallery/DSC02518.jpg'
@@ -287,29 +315,45 @@ const audio = {
   startVolume: 0.25
 }
 
-const itinerary: { title: string; time: string, address: string, addressLink: string, img: string }[] = [
+type ItineraryItem = {
+  title: string;
+  time: string,
+  address: string,
+  addressLink: string,
+  img?: string
+  emoji?: string
+  hide?: () => boolean,
+}
+
+const fullItinerary = ref<ItineraryItem[]>([
   {
     title: 'Cerenomia Religiosa',
     time: '04:00 PM',
     address: 'Parroquia Medalla Milagrosa. Adolfo Ruiz Cortines, Miguel Alemán',
     addressLink: 'https://maps.app.goo.gl/8dc5CKP2XezksyYMA',
-    img: '/img/church.png',
+    // img: '/img/church.png',
+    emoji: '👰🏻‍♀️🤵🏻‍♂️'
   },
   {
     title: 'Ceremonia Civil',
     time: '06:00 PM',
     address: 'Centro Deportivo ROCO. Carretera nacional México Laredo km 555',
     addressLink: 'https://maps.app.goo.gl/EW6gb6XUfTiQeFtw7',
-    img: '/img/roco.png',
+    // img: '/img/roco.png',
+    emoji: '📜',
+    hide: () => !showCivilCeremony.value,
   },
   {
     title: 'Recepción',
     time: '07:00 PM',
     address: 'Centro Deportivo ROCO. Carretera nacional México Laredo km 555',
     addressLink: 'https://maps.app.goo.gl/EW6gb6XUfTiQeFtw7',
-    img: '/img/roco.png',
+    // img: '/img/roco.png',
+    emoji: '🍾',
   }
-];
+]);
+
+const itinerary = computed(() => fullItinerary.value.filter(item => item.hide == undefined || !item.hide()));
 
 const detailsSections: { title: string, description: string }[] = [
   {
@@ -318,7 +362,7 @@ const detailsSections: { title: string, description: string }[] = [
   },
   {
     title: '¿Puedo tomar fotos con mi teléfono durante la boda?',
-    description: '¡Sí! Nos encantaría que tomaras fotos y las compartieras con el código QR que se encontrará en tu mesa. Sin embargo, por favor abstente de tomar fotos durante la ceremonia de la iglesia y no obstruir las tomas del fotógrafo. Después de la fiesta compartiremos las fotos contigo :)'
+    description: '¡Sí! Nos encantaría que tomaras fotos y videos de la fiesta y las compartas usando el código QR que se encontrará en tu mesa o en esta invitacion en la sección de galería, sin embargo, por favor permite al fotógrafo encargarse de la ceremonia en la iglesia y ayudanos a no obstruir ninguna toma. Después de la fiesta compartiremos las fotos contigo :)'
   },
   {
     title: '¿Dónde me puedo estacionar?',
@@ -326,15 +370,15 @@ const detailsSections: { title: string, description: string }[] = [
   },
   {
     title: "¿Los niños son bienvenidos?",
-    description: 'Los adultos a divertirse, los niños a descansar. Solo serán admitidos los niños pertenecientes a nuestra familia.'
+    description: 'Solo serán admitidos los niños pertenecientes a nuestra familia.'
   },
   {
     title: '¿Puedo llevar acompañantes extras?',
-    description: 'No, favor de limitarte al número de invitados brindados.'
+    description: 'En tu invitación encontrarás el número de acompañantes permitidos. Favor de limitarte al número de invitados brindados.'
   },
   {
     title: '¿Qué tipo de regalos preferimos?',
-    description: 'Tu presencia en nuestro día especial es el mejor regalo que podríamos pedir. Sin embargo, si deseas hacernos un obsequio, apreciamos contribuciones a nuestra luna de miel o artículos de nuestra lista de deseos.'
+    description: 'Tu presencia en nuestro día especial es el mejor regalo que podríamos pedir, pero si deseas hacernos un obsequio, estaremos aceptando sobres de dinero, además, cualquier regalo es apreciado y agradecido.'
   },
 ];
 
