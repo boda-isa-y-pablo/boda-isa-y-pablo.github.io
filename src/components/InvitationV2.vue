@@ -109,8 +109,26 @@
       <FadeInText text="GALERÍA" />
     </p>
 
+
+    <p class="text-center mb-6 px-6">
+      Nos encantaría que compartieras con nosotros tus fotos y videos de este inolvidable
+      día usando el código QR que encontrarás en tu mesa para subirlos a nuestro album compartido.
+    </p>
+
+    <p class="text-center mb-6 px-6">
+      Tambien puedes escanear el siguiente código QR o abrir el enlace:
+    </p>
+
+    <div class="flex justify-center mb-6">
+      <img src="/img/qr-code.png" alt="QR Code" class="w-64" />
+    </div>
+
     <p class="text-center mb-12 px-6">
-      Porque eres muy importante para nosotros, queremos compartir contigo nuestros momentos preferidos.
+      🖼️ <a href="https://photos.app.goo.gl/wXozjXAfq6C1dHCC8" target="_blank" class="underline text-rose-400">Abrir Galería de Fotos</a> 🖼️
+    </p>
+
+    <p class="text-center mb-12 px-6">
+      Y porque eres muy importante para nosotros, queremos compartir contigo algunos nuestros momentos preferidos.
     </p>
 
     <div class="grid grid-cols-2 gap-4">
