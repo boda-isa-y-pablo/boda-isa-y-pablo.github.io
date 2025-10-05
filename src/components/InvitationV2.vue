@@ -107,7 +107,7 @@
     </p>
 
     <p class="text-center mb-12 px-6">
-      Y porque eres muy importante para nosotros, queremos compartir contigo algunos nuestros momentos preferidos.
+      Y porque eres muy importante para nosotros, queremos compartir contigo algunos de nuestros momentos preferidos.
     </p>
 
     <div class="grid grid-cols-2 gap-4">
