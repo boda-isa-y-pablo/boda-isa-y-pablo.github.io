@@ -48,36 +48,7 @@
     </div>
   </div>
 
-  <div id="itinerary" class="px-6 py-12 bg-rose-50 text-lg">
-    <h1 class=" text-4xl text-center mb-12">
-      <FadeInText text="ITINERARIO" />
-    </h1>
-
-    <div class="flex flex-col gap-12">
-      <div v-for="(item, index) of itinerary" :key="index"
-        class="outline-1 outline-gray-200 shadow-md rounded-2xl">
-        <div
-          class="px-4 py-12 text-center bg-gray-50 rounded-t-2xl"
-          :class="item.img ? 'rounded-b-none' : 'rounded-b-2xl'">
-          <p class=" uppercase mb-6">
-            <span class="font-bold">{{ item.time }}</span> {{ item.title }}
-          </p>
-          <p class="underline text-rose-400">
-            <a :href="item.addressLink" target="_blank">{{ item.address }}</a>
-          </p>
-          <p v-if="item.emoji" class="text-4xl mt-6">
-            {{ item.emoji }}
-          </p>
-        </div>
-        <div v-if="item.img" class="w-full debug">
-          <a :href="item.addressLink" target="_blank">
-            <img :src="item.img" class="rounded-b-2xl w-full">
-          </a>
-        </div>
-      </div>
-    </div>
-
-  </div>
+  <ItineraryV1 :itinerary />
 
   <div id="details" class="relative mb-12 text-xl">
     <div class="relative pt-14 px-6 pb-6 z-1">
@@ -130,7 +101,9 @@
     </div>
 
     <p class="text-center mb-12 px-6">
-      🖼️ <a href="https://photos.app.goo.gl/wXozjXAfq6C1dHCC8" target="_blank" class="underline text-rose-400">Abrir Galería de Fotos</a> 🖼️
+      🖼️ <a href="https://photos.app.goo.gl/wXozjXAfq6C1dHCC8" target="_blank" class="underline text-rose-400">
+        Abrir Galería de Fotos
+      </a> 🖼️
     </p>
 
     <p class="text-center mb-12 px-6">
@@ -251,6 +224,10 @@ import Countdown from './Countdown.vue';
 import ImageViewer from './ImageViewer.vue';
 import { computed, ref } from 'vue';
 import AudioPlayer from './AudioPlayer.vue';
+import ItineraryV1 from './ItineraryV1.vue';
+import type { ItineraryItem } from './Itinerary';
+import { Church, PartyPopper, } from 'lucide-vue-next';
+import { gemRing } from '@lucide/lab'
 
 const weddingDate = new Date('2025-12-28T16:00:00');
 
@@ -263,9 +240,9 @@ const invitationQueryParams = computed<URLSearchParams | null>(() => {
   }
 
   const decodedQueryParams = decodeBase64(qParam);
-  
+
   return new URLSearchParams(decodedQueryParams);
-  
+
   function decodeBase64(base64: string): string {
     const binary = atob(base64);
     const bytes = new Uint8Array(binary.length);
@@ -311,45 +288,42 @@ const audio = {
   src: '/audio/canon-in-d-pachelbel.mp3',
   title: 'Canon in D - Pachelbel',
   startSecond: 3,
-  autoplay: true,
+  autoplay: false,
   startVolume: 0.25
-}
-
-type ItineraryItem = {
-  title: string;
-  time: string,
-  address: string,
-  addressLink: string,
-  img?: string
-  emoji?: string
-  hide?: () => boolean,
 }
 
 const fullItinerary = ref<ItineraryItem[]>([
   {
     title: 'Cerenomia Religiosa',
     time: '04:00 PM',
-    address: 'Parroquia Medalla Milagrosa. Adolfo Ruiz Cortines, Miguel Alemán',
+    address: 'Parroquia Medalla Milagrosa',
     addressLink: 'https://maps.app.goo.gl/8dc5CKP2XezksyYMA',
-    // img: '/img/church.png',
-    emoji: '👰🏻‍♀️🤵🏻‍♂️'
+    emoji: '⛪',
+    icon: Church,
+    // render: 'emoji',
+    render: 'icon',
   },
   {
     title: 'Ceremonia Civil',
     time: '06:00 PM',
-    address: 'Centro Deportivo ROCO. Carretera nacional México Laredo km 555',
+    address: 'Centro Deportivo ROCO',
     addressLink: 'https://maps.app.goo.gl/EW6gb6XUfTiQeFtw7',
-    // img: '/img/roco.png',
     emoji: '📜',
+    // icon: Gavel,
+    icon: gemRing,
+    // render: 'emoji',
+    render: 'lucide-lab',
     hide: () => !showCivilCeremony.value,
   },
   {
     title: 'Recepción',
     time: '07:00 PM',
-    address: 'Centro Deportivo ROCO. Carretera nacional México Laredo km 555',
+    address: 'Centro Deportivo ROCO',
     addressLink: 'https://maps.app.goo.gl/EW6gb6XUfTiQeFtw7',
-    // img: '/img/roco.png',
-    emoji: '🍾',
+    emoji: '🥂',
+    icon: PartyPopper,
+    // render: 'emoji',
+    render: 'icon',
   }
 ]);
 
