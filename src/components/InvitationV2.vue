@@ -81,7 +81,7 @@
     </div>
   </div>
 
-  <div id="gallery" class="px-4 pb-4 text-xl">
+  <div id="gallery" class="px-4 pb-4 text-xl mb-12">
     <p class="text-4xl text-center relative mb-12">
       <FadeInText text="GALERÍA" />
     </p>
@@ -121,6 +121,9 @@
   </div>
 
   <ImageViewer :image="selectedImage" :opened="isOpen" @close="isOpen = false" />
+
+  <Confirmation class="mb-24" phone-number="528311354465"
+    message="¡Hola! 👋 Quiero confirmar mi asistencia a la boda de Isabel & Pablo 👰🏻‍♀️🤵🏻 este 28 de diciembre de 2025 🎉" />
 
 </template>
 
@@ -228,6 +231,7 @@ import ItineraryV1 from './ItineraryV1.vue';
 import type { ItineraryItem } from './Itinerary';
 import { Church, PartyPopper, } from 'lucide-vue-next';
 import { gemRing } from '@lucide/lab'
+import Confirmation from './Confirmation.vue';
 
 const weddingDate = new Date('2025-12-28T16:00:00');
 
