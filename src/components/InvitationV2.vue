@@ -48,6 +48,8 @@
     </div>
   </div>
 
+  <SpecialMessage />
+
   <ItineraryV1 :itinerary />
 
   <div id="details" class="relative mb-12 text-xl">
@@ -232,6 +234,7 @@ import type { ItineraryItem } from './Itinerary';
 import { Church, PartyPopper, } from 'lucide-vue-next';
 import { gemRing } from '@lucide/lab'
 import Confirmation from './Confirmation.vue';
+import SpecialMessage from './SpecialMessage.vue';
 
 const weddingDate = new Date('2025-12-28T16:00:00');
 
