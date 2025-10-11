@@ -122,8 +122,14 @@
 
   <ImageViewer :image="selectedImage" :opened="isOpen" @close="isOpen = false" />
 
-  <Confirmation class="mb-24" phone-number="528311354465"
-    message="¡Hola! 👋 Quiero confirmar mi asistencia a la boda de Isabel & Pablo 👰🏻‍♀️🤵🏻 este 28 de diciembre de 2025 🎉" />
+  <div v-if="invitationPasses">
+    <Confirmation class="mb-24" send-to-phone-number="528311354465" send-to-email="lilibeteventos@gmail.com"
+      :passes="invitationPasses" />
+
+    <div class="h-48 ">
+      <!-- whitespace-->
+    </div>
+  </div>
 
 </template>
 
