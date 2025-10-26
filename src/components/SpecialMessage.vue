@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-rose-50 px-6 py-12">
+  <div class="bg-rose-50 px-6 py-12 text-xl">
 
     <div class="relative w-full max-w-2xl mx-auto">
 
@@ -9,14 +9,14 @@
           <Sparkles class="size-8 text-primary animate-pulse rotate-20 " :stroke-width="1.2" />
         </div>
 
-        <h2 class="text-xl text-primary mb-4">
+        <h2 class="text-primary font-bold mb-4">
           <!-- Con todo nuestro cariño -->
           <!-- Un mensaje especial para ti -->
            {{ title }}
         </h2>
 
         <!-- Message -->
-        <p class="text-md text-base-content/80 leading-relaxed italic mb-4">
+        <p class="text-base-content/80 leading-relaxed italic mb-4">
           <!-- Queridos familiares y amigos,<br />
           por fin ha llegado el gran día en el que
           uniremos nuestras vidas en matrimonio.<br />
@@ -38,7 +38,7 @@
         </p>
 
         <!-- Signature -->
-        <p class="font-fancy text-4xl text-rose-300">
+        <p class="font-fancy text-5xl text-rose-300">
           <!-- Isabel <span class="font-fancy mr-1">&</span> Pablo -->
            {{ signature }}
         </p>

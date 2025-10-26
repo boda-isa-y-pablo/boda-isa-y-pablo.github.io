@@ -73,13 +73,13 @@ function submit(type: SubmitType) {
 </script>
 
 <template>
-  <div class="text-center px-6">
+  <div class="text-lg text-center px-6">
 
     <div class="flex justify-center mb-6">
       <CheckCircle class="size-12 text-success" />
     </div>
 
-    <h2 class="text-xl mb-4">¡Confirma tu asistencia!</h2>
+    <h2 class="text-2xl mb-6">¡Confirma tu asistencia!</h2>
 
     <p class="mb-4">Esta invitación vale para <span class="font-bold">{{ passes }}</span> personas</p>
 
