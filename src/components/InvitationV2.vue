@@ -25,8 +25,6 @@
           {{ weddingDate.getFullYear() }}
         </span>
       </p>
-
-      <p v-if="invitationPasses">Esta invitación vale para {{ invitationPasses }} personas</p>
     </div>
 
     <div id="countdown" class="anim-fade-in absolute bottom-0 left-0 -translate-y-2/3 w-full py-12 text-center">
@@ -348,10 +346,6 @@ const detailsSections: { title: string, description: string }[] = [
     description: 'Formal: traje para los hombres y vestido largo para las mujeres.'
   },
   {
-    title: '¿Puedo tomar fotos con mi teléfono durante la boda?',
-    description: '¡Sí! Nos encantaría que tomaras fotos y videos de la fiesta y las compartas usando el código QR que se encontrará en tu mesa o en esta invitacion en la sección de galería, sin embargo, por favor permite al fotógrafo encargarse de la ceremonia en la iglesia y ayudanos a no obstruir ninguna toma. Después de la fiesta compartiremos las fotos contigo :)'
-  },
-  {
     title: '¿Dónde me puedo estacionar?',
     description: 'El lugar de la recepción cuenta con estacionamiento privado.'
   },
@@ -366,6 +360,10 @@ const detailsSections: { title: string, description: string }[] = [
   {
     title: '¿Qué tipo de regalos preferimos?',
     description: 'Tu presencia en nuestro día especial es el mejor regalo que podríamos pedir, pero si deseas hacernos un obsequio, estaremos aceptando sobres de dinero, además, cualquier regalo es apreciado y agradecido.'
+  },
+  {
+    title: '¿Puedo tomar fotos con mi teléfono durante la boda?',
+    description: '¡Sí! Nos encantaría que tomaras fotos y videos de la fiesta y las compartas usando el código QR que se encontrará en tu mesa o en esta invitacion en la sección de galería, sin embargo, por favor permite al fotógrafo encargarse de la ceremonia en la iglesia y ayudanos a no obstruir ninguna toma. Después de la fiesta compartiremos las fotos contigo :)'
   },
 ];
 

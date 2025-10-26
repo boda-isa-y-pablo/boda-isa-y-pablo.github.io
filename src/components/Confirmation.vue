@@ -81,6 +81,8 @@ function submit(type: SubmitType) {
 
     <h2 class="text-xl mb-4">¡Confirma tu asistencia!</h2>
 
+    <p class="mb-4">Esta invitación vale para <span class="font-bold">{{ passes }}</span> personas</p>
+
     <p class="text-gray-500 mb-10">
       Marca la siguiente casilla para indicar si asistirás o no a nuestra boda.
     </p>
